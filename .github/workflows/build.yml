@@ -14,6 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: build
+      shell: cmd
       run: |
         vcvars64
         cl /c src\binn.c
