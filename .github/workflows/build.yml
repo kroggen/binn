@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: build
       run: |
-        call vcvars64
+        vcvars64
         cl /c src\binn.c
         lib binn.obj
         cl /LD src\binn.c src\win32\dllmain.c /DEF:src\win32\binn.def
