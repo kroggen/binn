@@ -19,5 +19,6 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         cl /c src\binn.c
         lib binn.obj
-        cl /LD src\binn.c src\win32\dllmain.c /DEF:src\win32\binn.def
+        dir
+        cl /LD src\binn.c src\win32\dllmain.c /DEF:src\win32\binn.def /OUT:binn-3.0.dll
         dir
