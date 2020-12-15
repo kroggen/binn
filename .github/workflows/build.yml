@@ -13,13 +13,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: build
+    - name: build x64
       shell: cmd
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cl /c src\binn.c
+        cl /c /MT src\binn.c
         lib binn.obj
         dir
-        #cl /LD src\binn.c src\win32\dllmain.c /DEF:src\win32\binn.def /link /DLL /OUT:binn-3.0.dll
+        del binn.obj
         cl /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
         dir
+        dumpbin /dependents binn-3.0.dll
+        cl /MT /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
+        dir
+        dumpbin /dependents binn-3.0.dll
+
+    - name: build win32
+      shell: cmd
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
+        cl /c /MT src\binn.c
+        lib binn.obj
+        dir
+        cl /MT /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
+        dir
+        dumpbin /dependents binn-3.0.dll
