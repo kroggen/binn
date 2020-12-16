@@ -47,7 +47,13 @@ jobs:
       run: |
         Get-ChildItem -Path static, binn-3.0.dll, binn-3.0.lib | Compress-Archive -DestinationPath binn-windows-win32.zip
 
+    - name: list files
+      shell: cmd
+      run: dir
+
     - name: upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        path: binn-windows-x64.zip binn-windows-win32.zip
+        path: |
+          binn-windows-x64.zip
+          binn-windows-win32.zip
