@@ -21,7 +21,7 @@ jobs:
         lib binn.obj
         dir
         if not exist static mkdir static
-        move /y libbinn.lib static\
+        move /y binn.lib static\
         cl /MT /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
         dir
         dumpbin /dependents binn-3.0.dll
@@ -38,7 +38,7 @@ jobs:
         lib binn.obj
         dir
         if not exist static mkdir static
-        move /y libbinn.lib static\
+        move /y binn.lib static\
         cl /MT /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
         dir
         dumpbin /dependents binn-3.0.dll
