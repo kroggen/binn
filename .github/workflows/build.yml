@@ -25,10 +25,10 @@ jobs:
         cl /MT /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
         dir
         dumpbin /dependents binn-3.0.dll
-
-    - name: zip x64 artifacts
-      run: |
-        Get-ChildItem -Path static, binn-3.0.dll, binn-3.0.lib | Compress-Archive -DestinationPath binn-windows-x64.zip
+        mkdir x64
+        move static x64\
+        move binn-3.0.dll x64\
+        move binn-3.0.lib x64\
 
     - name: build win32
       shell: cmd
@@ -42,18 +42,23 @@ jobs:
         cl /MT /D_USRDLL /D_WINDLL src\binn.c src\win32\dllmain.c /LD /Febinn-3.0.dll /link /DEF:src\win32\binn.def
         dir
         dumpbin /dependents binn-3.0.dll
-
-    - name: zip win32 artifacts
-      run: |
-        Get-ChildItem -Path static, binn-3.0.dll, binn-3.0.lib | Compress-Archive -DestinationPath binn-windows-win32.zip
+        mkdir win32
+        move static win32\
+        move binn-3.0.dll win32\
+        move binn-3.0.lib win32\
 
     - name: list files
       shell: cmd
-      run: dir
+      run: |
+        dir x64
+        dir win32
+        dir x64\static
+        dir win32\static
 
     - name: upload artifacts
       uses: actions/upload-artifact@v2
       with:
+        name: binn-windows
         path: |
-          binn-windows-x64.zip
-          binn-windows-win32.zip
+          x64
+          win32
